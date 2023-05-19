@@ -22,7 +22,7 @@ public class IntegralGraph : MonoBehaviour
         _integral.Precision = 20000;
         _integral.Integrate(_functionGraph.Func);
         
-        _sumAreaText.text = $"面積: {_integral.SumArea}";
+        _sumAreaText.text = $"Area: {_integral.SumArea}";
         _mesh = new Mesh();
         _mesh.SetVertices(_integral.Verticies);
         _mesh.SetTriangles(_integral.Triangles, 0);

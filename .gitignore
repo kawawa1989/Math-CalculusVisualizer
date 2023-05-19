@@ -3,3 +3,5 @@ Temp
 Logs
 *.csproj
 *.sln
+.idea/.idea.Math-CalculusVisualizer/.idea
+obj

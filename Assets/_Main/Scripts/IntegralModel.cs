@@ -10,6 +10,7 @@ public class IntegralModel
     /// </summary>
     public class Section
     {
+        private int _start;
         private int _end;
         private int Center { get; }
         private int VertexBufferLength { get; }
@@ -19,6 +20,12 @@ public class IntegralModel
         {
             set => _end = value * 3;
             get => _end;
+        }
+
+        public int Start
+        {
+            set => _start = value * 3;
+            get => _start;
         }
 
         public Section(int center, int vertexLength)
@@ -31,7 +38,6 @@ public class IntegralModel
 
         public float CalcSumArea(Vector3[] verticies)
         {
-            Debug.Log($"Center: {Center}, \n" + $"VertexBufferLength:{VertexBufferLength}(mod {VertexBufferLength % 3}), \n" + $"VertexLength: {VertexLength}, \n" + $"SqrCount: {SqrCount}, AllSqrCount: {AllSqrCount}");
             float sum = 0;
             for (int i = VertexStart; i < VertexStart + VertexLength; i += 3)
             {
@@ -45,8 +51,8 @@ public class IntegralModel
             return sum;
         }
 
-        public int VertexStart => Center;
-        public int VertexLength => End + 1;
+        public int VertexStart => Start + Center;
+        public int VertexLength => (End - Start) + 1;
         public int SqrCount => VertexLength / 3;
     }
 
@@ -54,8 +60,6 @@ public class IntegralModel
     private List<int> _triangles = new List<int>();
     public Vector3[] Verticies => _verticies;
     public List<int> Triangles => _triangles;
-    
-    public float SumArea { get; set; } = 0;
 
 
     /// <summary>
@@ -105,7 +109,6 @@ public class IntegralModel
             x1 = x2;
         }
 
-        SumArea = sumArea;
         return new Section(precision / 2 * 3, _verticies.Length);
     }
 

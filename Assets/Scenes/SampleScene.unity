@@ -1203,6 +1203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _functionGraph: {fileID: 1583973948}
   _sumAreaText: {fileID: 1329855554}
+  _sectionStartInput: {fileID: 2064717835}
   _sectionEndInput: {fileID: 1308877092}
 --- !u!33 &1110195798
 MeshFilter:

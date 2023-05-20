@@ -7,7 +7,9 @@ public class IntegralGraph : MonoBehaviour
 {
     [SerializeField] private FunctionGraph _functionGraph;
     [SerializeField] private TextMeshProUGUI _sumAreaText;
+    [SerializeField] private TMP_InputField _sectionStartInput;
     [SerializeField] private TMP_InputField _sectionEndInput;
+
 
     private Mesh _mesh;
     private readonly IntegralModel _integral = new IntegralModel();
@@ -26,6 +28,7 @@ public class IntegralGraph : MonoBehaviour
         meshFilter.mesh = _mesh;
     }
 
+    private int _start;
     private int _end;
 
     private void Update()
@@ -43,6 +46,21 @@ public class IntegralGraph : MonoBehaviour
             }
 
             _end = toIntSectionEnd;
+        }
+
+        if (double.TryParse(_sectionStartInput.text, out var sectionStart))
+        {
+            int toIntSectionStart = (int)(sectionStart * 100);
+            if (toIntSectionStart != _start)
+            {
+                _section.Start = toIntSectionStart;
+                _mesh.Clear();
+                _mesh.SetVertices(_integral.Verticies, _section.VertexStart, _section.VertexLength);
+                _mesh.SetTriangles(_integral.Triangles, 0, _section.SqrCount * 6, 0);
+                _sumAreaText.text = $"Area: {_section.CalcSumArea(_integral.Verticies)}";
+            }
+
+            _start = toIntSectionStart;
         }
     }
 }

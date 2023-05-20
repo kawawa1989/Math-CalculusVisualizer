@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
@@ -6,6 +7,7 @@ using UnityEngine;
 public class HorizontalScalerGraph : MonoBehaviour
 {
     private HorizontalScalerModel _horizontalScaler;
+    [SerializeField]
     private Mesh _mesh;
 
     private void Start()
@@ -17,8 +19,14 @@ public class HorizontalScalerGraph : MonoBehaviour
         _mesh.SetVertices(_horizontalScaler.Verticies);
         _mesh.SetTriangles(_horizontalScaler.Triangles, 0);
         _mesh.RecalculateNormals();
+
         MeshFilter meshFilter = GetComponent<MeshFilter>();
         meshFilter.mesh = _mesh;
+        
+//#if UNITY_EDITOR
+//        AssetDatabase.CreateAsset(meshFilter.mesh, "Assets/scaler_mesh.asset");
+//        AssetDatabase.SaveAssets();
+//#endif
     }
 
     private void OnDestroy()

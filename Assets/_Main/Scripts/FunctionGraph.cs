@@ -12,10 +12,9 @@ public class FunctionGraph : MonoBehaviour
     //public Func<float, float> Func = x => (float)Math.Exp(x);    // e^x
     //public Func<float, float> Func = x => x * x * x;             // x^3 
     //public Func<float, float> Func = x => x == 0 ? 0 : 1.0f / x; // x^-1
-    //public Func<float, float> Func = x => x * x; // 
+    //public Func<float, float> Func = x => x * x;                 // x^2
     //public Func<float, float> Func = x => Mathf.Cos(x);
-    public Func<float, float> Func = x => x;
-
+    //public Func<float, float> Func = x => x;
 
     // Start is called before the first frame update
     void Start()

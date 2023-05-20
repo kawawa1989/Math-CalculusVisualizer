@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,47 +9,42 @@ public class IntegralGraph : MonoBehaviour
 {
     [SerializeField] private FunctionGraph _functionGraph;
     [SerializeField] private TextMeshProUGUI _sumAreaText;
-    [SerializeField] private Slider _slider;
-    
+    [SerializeField] private TMP_InputField _sectionEndInput;
+
     private Mesh _mesh;
     private readonly IntegralModel _integral = new IntegralModel();
+    private IntegralModel.Section _section;
+
     
     // Start is called before the first frame update
     void Start()
     {
-        _integral.Start = 0;
-        _integral.End = 5;
-        _integral.Precision = 10;
-        _integral.Integrate(_functionGraph.Func);
-        
-        
-        _sumAreaText.text = $"Area: {_integral.SumArea}";
+        _section = _integral.Integrate(_functionGraph.Func, 10);
         _mesh = new Mesh();
-        _mesh.SetVertices(_integral.Verticies, 9, _integral.Verticies.Count - 9);
-        _mesh.SetTriangles(_integral.Triangles, 0, _integral.Triangles.Count - 18, 0);
+        _mesh.SetVertices(_integral.Verticies, _section.VertexStart, _section.VertexLength);
+        _mesh.SetTriangles(_integral.Triangles, 0, _section.SqrCount * 6, 0);
         _mesh.RecalculateNormals();
-        
         MeshFilter meshFilter = GetComponent<MeshFilter>();
         meshFilter.mesh = _mesh;
     }
 
+    private int _end;
+
     private void Update()
     {
-        /*
-        int valueRate = (int) ((_slider.value / _slider.maxValue) * 10000);
-        int vertLength = (int) Math.Clamp((4 * valueRate), 0, _integral.Verticies.Count / 2);
-        int triangleLength = (int) Math.Clamp((3 * valueRate), 0, _integral.Triangles.Count / 2);
-        _mesh.SetVertices(_integral.Verticies, 0, vertLength);
-        _mesh.SetTriangles(_integral.Triangles, 0, triangleLength, 0);
-        */
-    }
-
-    public float SnapToTarget(float value, float targetValue, float epsilon)
-    {
-        if (Math.Abs(value - targetValue) < epsilon)
+        if (double.TryParse(_sectionEndInput.text, out var sectionEnd))
         {
-            return targetValue;
+            int toIntSectionEnd = (int)(sectionEnd * 100);
+            if (toIntSectionEnd != _end)
+            {
+                _section.End = toIntSectionEnd;
+                _mesh.Clear();
+                _mesh.SetVertices(_integral.Verticies, _section.VertexStart, _section.VertexLength);
+                _mesh.SetTriangles(_integral.Triangles, 0, _section.SqrCount * 6, 0);
+                _sumAreaText.text = $"Area: {_section.CalcSumArea(_integral.Verticies)}";
+            }
+
+            _end = toIntSectionEnd;
         }
-        return value;
     }
 }

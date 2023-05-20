@@ -12,7 +12,9 @@ public class FunctionGraph : MonoBehaviour
     //public Func<float, float> Func = x => (float)Math.Exp(x);    // e^x
     //public Func<float, float> Func = x => x * x * x;             // x^3 
     //public Func<float, float> Func = x => x == 0 ? 0 : 1.0f / x; // x^-1
-    public Func<float, float> Func = x => x * x; // 
+    //public Func<float, float> Func = x => x * x; // 
+    //public Func<float, float> Func = x => Mathf.Cos(x);
+    public Func<float, float> Func = x => x;
 
 
     // Start is called before the first frame update
@@ -35,7 +37,7 @@ public class FunctionGraph : MonoBehaviour
             float dx = _positions[i + 1].x - _positions[i].x;
             float dy = _positions[i + 1].y - _positions[i].y;
             float t = dy / dx;
-            Debug.Log($"[x: {_positions[i].x}] 傾き: {t}");
+            //Debug.Log($"[x: {_positions[i].x}] 傾き: {t}");
         }
     }
 

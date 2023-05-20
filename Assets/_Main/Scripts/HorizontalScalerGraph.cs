@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshFilter))]
-public class ScalerGraph : MonoBehaviour
+public class HorizontalScalerGraph : MonoBehaviour
 {
     private HorizontalScalerModel _horizontalScaler;
     private Mesh _mesh;

@@ -42,7 +42,7 @@ public class IntegralGraph : MonoBehaviour
                 _mesh.Clear();
                 _mesh.SetVertices(_integral.Verticies, _section.VertexStart, _section.VertexLength);
                 _mesh.SetTriangles(_integral.Triangles, 0, _section.SqrCount * 6, 0);
-                _sumAreaText.text = $"Area: {_section.CalcSumArea()}";
+                _sumAreaText.text = $"= {_section.CalcSumArea()}";
             }
 
             _end = toIntSectionEnd;
@@ -57,7 +57,7 @@ public class IntegralGraph : MonoBehaviour
                 _mesh.Clear();
                 _mesh.SetVertices(_integral.Verticies, _section.VertexStart, _section.VertexLength);
                 _mesh.SetTriangles(_integral.Triangles, 0, _section.SqrCount * 6, 0);
-                _sumAreaText.text = $"Area: {_section.CalcSumArea()}";
+                _sumAreaText.text = $"= {_section.CalcSumArea()}";
             }
 
             _start = toIntSectionStart;

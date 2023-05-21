@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MathematicsExpression;
 using UnityEngine;
 
 public class FunctionGraph : MonoBehaviour
@@ -37,34 +38,6 @@ public class FunctionGraph : MonoBehaviour
             float dy = _positions[i + 1].y - _positions[i].y;
             float t = dy / dx;
             //Debug.Log($"[x: {_positions[i].x}] 傾き: {t}");
-        }
-    }
-
-    private const float rad2deg = (Mathf.PI / 180f);
-    private readonly Vector3 _yAxis = Vector3.up;
-    private float _rotY = 0;
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            _rotY += 1;
-            Debug.Log($"Rot!! rowY:{_rotY}");
-            float theta = rad2deg * _rotY;
-            float sin = Mathf.Sin(theta * 0.5f);
-            float cos = Mathf.Cos(theta * 0.5f);
-            Vector3 n = _yAxis * sin;
-            // w(cos θ/2) + (i + j + k)(sin θ/2)
-            var q = new Quaternion(n.x, n.y, n.z, cos);
-            // 共役クォータニオン
-            var qConjugate = new Quaternion(-q.x, -q.y, -q.z, q.w);
-            
-            // qpq* で回転後の座標を求めることができる
-            transform.rotation = q;
-            for (int i = 0; i < _positions.Count; ++i)
-            {
-                //_lineRenderer.SetPosition(i, new Vector3(r.x, r.y, r.z));
-            }
         }
     }
 }

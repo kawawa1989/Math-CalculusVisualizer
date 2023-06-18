@@ -19,7 +19,7 @@ public class IntegralGraph : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _section = _integral.TrapezoidalIntegrate(_functionGraph.Func, 10);
+        _section = _integral.TrapezoidalIntegrate(_functionGraph.FuncModel.F, 10);
         _mesh = new Mesh();
         _mesh.SetVertices(_integral.Verticies, _section.VertexStart, _section.VertexLength);
         _mesh.SetTriangles(_integral.Triangles, 0, _section.SqrCount * 6, 0);
